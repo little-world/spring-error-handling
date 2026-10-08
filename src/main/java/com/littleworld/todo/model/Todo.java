@@ -1,27 +1,21 @@
 package com.littleworld.todo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 
-@Entity
+import jakarta.validation.constraints.NotBlank;
+
 public class Todo {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  int id;
+  Long id;
 
   @NotBlank
   String task;
 
   public Todo() {}
 
-  public Todo(int id, String task) {
+  public Todo(Long id, String task) {
     this.id = id;
     this.task = task;  }
-  public int getId() { return id; }
-  public void setId(int id)  { this.id = id; } 
+  public Long getId() { return id; }
+  public void setId(Long id)  { this.id = id; }
   public String getTask() { return task; }
   public void setTask(String task)  { this.task = task; }  
   @Override 
