@@ -22,6 +22,12 @@ public class TodoController {
   @Autowired  private TodoService todoService;
 
   @PostMapping("/todo")
+  Todo save(@RequestBody Todo todo) {
+    return todoService.save(todo);
+  }
+
+
+  @PostMapping("/todo1")
   ResponseEntity<?> saveWithResponseEntity(@RequestBody Todo todo) {
     if ((todo.getId() == null || todo.getId() == 0) &&todo.getTask() != null )
       return new ResponseEntity<>(todoService.save(todo), HttpStatus.OK);

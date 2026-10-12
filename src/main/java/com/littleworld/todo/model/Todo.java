@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 public class Todo {
   Long id;
 
-  @NotBlank
+  //@NotBlank
   String task;
 
   public Todo() {}
