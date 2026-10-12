@@ -49,12 +49,12 @@ public class TodoController {
 
 
 
-   //staat ook in TodoExceptionHandler: @ControllerAdvice
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler(Exception.class)
-  public String exceptionHandler(Exception ex) {
-    return "exception: " + ex.getMessage();
-  }
+//   //staat ook in TodoExceptionHandler: @ControllerAdvice
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  @ExceptionHandler(Exception.class)
+//  public String exceptionHandler(Exception ex) {
+//    return "exception: " + ex.getMessage();
+//  }
 
 }
 
