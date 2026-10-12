@@ -106,4 +106,33 @@ public class TodoService {
       throw new RuntimeException("Failed to update todo", ex);
     }
   }
+
+  public List<Todo> findById(Long id) {
+    String sql = "SELECT id, task FROM todo WHERE id = ?";
+
+
+    try (Connection connection = dataSource.getConnection();
+         PreparedStatement ps = connection.prepareStatement(sql);
+         ) {
+
+         ps.setLong(1, id);
+
+       ResultSet rs = ps.executeQuery();
+
+      List<Todo> todos = new ArrayList<>();
+      while (rs.next()) {
+        todos.add(mapRow(rs));
+      }
+      rs.close();
+      return todos;
+
+    } catch (SQLException ex) {
+      // Plain JDBC only throws the checked SQLException - there's no
+      // equivalent of Spring's unchecked DataAccessException hierarchy,
+      // so callers either declare "throws SQLException" everywhere or,
+      // as here, it gets wrapped.
+      throw new RuntimeException("Failed to load todos", ex);
+    }
+
+  }
 }

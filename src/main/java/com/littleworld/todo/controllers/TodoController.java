@@ -28,10 +28,10 @@ public class TodoController {
 
 
   @PostMapping("/todo1")
-  ResponseEntity<?> saveWithResponseEntity(@RequestBody Todo todo) {
+ Todo saveWithResponseEntity(@RequestBody Todo todo) throws Exception {
     if ((todo.getId() == null || todo.getId() == 0) &&todo.getTask() != null )
-      return new ResponseEntity<>(todoService.save(todo), HttpStatus.OK);
-    else return new ResponseEntity<>("can not save", HttpStatus.BAD_REQUEST);
+      return todoService.save(todo);
+    else throw new Exception("something is wrong");
   }
 
   @PostMapping("/todo2")
@@ -41,12 +41,16 @@ public class TodoController {
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public List<FieldErrorMessage> exceptionHandler(MethodArgumentNotValidException ex) {
+  public MethodArgumentNotValidException exceptionHandler(MethodArgumentNotValidException ex) {
     BindingResult result = ex.getBindingResult();
     List<FieldError> fieldErrors = result.getFieldErrors();
-    return fieldErrors.stream().map(fieldError -> new FieldErrorMessage(fieldError.getField(), fieldError.getDefaultMessage())).collect(Collectors.toList());
+    return ex;
   }
 
+  @GetMapping("/todo/{id}")
+  List<Todo> findById(@PathVariable Long id) {
+     return todoService.findById(id);
+  }
 
 
 //   //staat ook in TodoExceptionHandler: @ControllerAdvice
